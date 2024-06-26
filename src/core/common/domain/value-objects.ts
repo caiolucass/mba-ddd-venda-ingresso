@@ -43,7 +43,6 @@ toString = () => {
     };
 }
 
-
 export function deepFreeze<T>(obj: T) {
     try {
         const propNames = Object.getOwnPropertyNames(obj);

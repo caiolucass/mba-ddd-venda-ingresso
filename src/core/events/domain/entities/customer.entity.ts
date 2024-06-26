@@ -1,19 +1,19 @@
 /* eslint-disable prettier/prettier */
 
 import { AggregateRoot } from "src/core/common/domain/aggregate.root";
-import { Name } from "src/core/common/domain/value-objects/name.vo";
+import { Cpf } from "src/core/common/domain/value-objects/cpf.vo";
 
 /* eslint-disable @typescript-eslint/ban-types */
 export type CustomerConstructorProps = {
     id?: string;
-    cpf: string;
-    name: Name;
+    cpf: Cpf;
+    name: string;
 }
 
 export class Customer extends AggregateRoot {
     id: string;
-    cpf: string;
-    name: Name;
+    cpf: Cpf;
+    name: string;
    
   constructor(props: CustomerConstructorProps) {
     super();
@@ -22,8 +22,11 @@ export class Customer extends AggregateRoot {
      this.name = props.name;
   }
 
-  static create(command: {name: Name; cpf: string}) {
-    return new Customer(command)
+  static create(command: {name: string; cpf: string}) {
+    return new Customer(
+      name: command.name,
+      Cpf: new Cpf(command.cpf)
+    )
   }
 
   toJSON(){
