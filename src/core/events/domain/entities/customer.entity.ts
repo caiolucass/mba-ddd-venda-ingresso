@@ -2,31 +2,37 @@
 
 import { AggregateRoot } from "src/core/common/domain/aggregate.root";
 import { Cpf } from "src/core/common/domain/value-objects/cpf.vo";
+import Uuid from "src/core/common/domain/value-objects/uuid.vo";
+
+export class CustomerId extends Uuid {}
 
 /* eslint-disable @typescript-eslint/ban-types */
 export type CustomerConstructorProps = {
-    id?: string;
+    id?: CustomerId | string;
     cpf: Cpf;
     name: string;
 }
 
 export class Customer extends AggregateRoot {
-    id: string;
+    id: CustomerId;
     cpf: Cpf;
     name: string;
    
   constructor(props: CustomerConstructorProps) {
     super();
-     this.id = props.id;
+     this.id =  
+     typeof props.id == 'string' ? new CustomerId(props.id) 
+     : props.id ?? new CustomerId()
      this.cpf = props.cpf;
      this.name = props.name;
   }
 
+
   static create(command: {name: string; cpf: string}) {
-    return new Customer(
+    return new Customer({
       name: command.name,
-      Cpf: new Cpf(command.cpf)
-    )
+      cpf: new Cpf(command.cpf),
+    });
   }
 
   toJSON(){
