@@ -78,6 +78,36 @@ export class Event extends AggregateRoot {
        this.total_spots += section.total_spots;
     }
 
+    changeName(name: string) {
+        this.name = name;
+    }
+
+    changeDescription(description: string | null) {
+        this.description = description;
+    }
+
+    changeDate(date: Date) {
+        this.date = date;
+    }
+
+    publishAll() {
+        this.publish();
+        this.sections.forEach((section) => section.publishAll());
+    }
+
+    unPublishAll() {
+        this.unpublish();
+        this.sections.forEach((section) => section.unPublishAll());
+    }
+
+    publish() {
+        this.is_published = this.is_published;
+    }
+
+    unpublish() {
+        this.is_published = this.is_published;
+    }
+
     toJSON() {
         return {
             id: this.id.value,

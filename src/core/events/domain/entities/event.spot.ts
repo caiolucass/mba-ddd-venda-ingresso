@@ -37,6 +37,18 @@ export class EventSpot extends Entity {
            is_reserved: false,
         });
     }
+ 
+    changeLocation(location: string) {
+        this.location = location;
+    }
+
+    publish() {
+        this.is_published = this.is_published;
+    }
+
+    unPublish() {
+        this.is_published = this.is_published;
+    }
 
     toJSON() {
         return {

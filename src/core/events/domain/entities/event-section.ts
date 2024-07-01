@@ -66,6 +66,36 @@ export class EventSection extends Entity {
         }
     }
 
+    changeName(name: string) {
+        this.name = name;
+    }
+
+    changeDescription(description: string | null) {
+        this.description = description;
+    }
+
+    changePrice(price: number) {
+        this.price = price;
+    }
+
+    publishAll() {
+        this.publish();
+        this.spots.forEach((spot) => spot.publish());
+    }
+
+    unPublishAll() {
+        this.publish();
+        this.spots.forEach((spot) => spot.publish());
+    }
+
+    publish() {
+        this.is_published = this.is_published;
+    }
+
+    unPublish() {
+        this.is_published = this.is_published;
+    }
+
     toJSON() {
         return {
             id: this.id.value,
