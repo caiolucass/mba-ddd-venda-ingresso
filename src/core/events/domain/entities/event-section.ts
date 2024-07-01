@@ -1,6 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Entity } from "src/core/common/domain/entity";
 import Uuid from "src/core/common/domain/value-objects/uuid.vo";
+import { EventSpot } from "./event.spot";
 
 export class EventSectionId extends Uuid {}
 
@@ -19,6 +20,7 @@ export type EventSectionConstructorProps = {
    total_spots: number;
    total_spots_reserved: number;
    price: number;
+   spots?: Set<EventSpot>;
 };
 
 export class EventSection extends Entity {
@@ -29,6 +31,7 @@ export class EventSection extends Entity {
     total_spots: number;
     total_spots_reserved: number;
     price: number;
+    spots: Set<EventSpot>;
 
     constructor(props: EventSectionConstructorProps) {
         super();
@@ -43,6 +46,7 @@ export class EventSection extends Entity {
         this.total_spots = props.total_spots;
         this.total_spots_reserved = props.total_spots_reserved;
         this.price = props.price
+        this.spots = props.spots ?? new Set<EventSpot>();
     }
 
     static create(command: EventSectionCreateCommand) {
@@ -63,6 +67,7 @@ export class EventSection extends Entity {
             total_spots: this.total_spots,
             total_spots_reserved: this.total_spots_reserved,
             price: this.price,
+            spots: [...this.spots].map((spot)  => spot.toJSON())
         };
     }
 }

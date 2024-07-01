@@ -2,6 +2,7 @@
 import { AggregateRoot } from "src/core/common/domain/aggregate.root";
 import { PartnerId } from "./partner.entity";
 import Uuid from "src/core/common/domain/value-objects/uuid.vo";
+import { EventSection } from "./event-section";
 
 export class EventId extends Uuid{}
 
@@ -20,7 +21,8 @@ export type EventConstructorProps = {
     is_published: boolean;
     total_spots: number;
     total_spots_reserved: number;
-    partner_id: PartnerId;
+    partner_id: PartnerId | string;
+    sections?: Set<EventSection>;
 };
 
 export class Event extends AggregateRoot {
@@ -32,8 +34,9 @@ export class Event extends AggregateRoot {
     total_spots: number;
     total_spots_reserved: number;
     partner_id: PartnerId;
+    sections: Set<EventSection>;
 
-    constructor(props: Omit<EventConstructorProps, 'sections'>) {
+    constructor(props: EventConstructorProps) {
         super();
         this.id = typeof props.id === 'string'
         ? new EventId(props.id)
@@ -49,6 +52,7 @@ export class Event extends AggregateRoot {
         props.partner_id instanceof PartnerId
         ? props.partner_id
         : new PartnerId(props.partner_id);
+        this.sections = props.sections ?? new Set<EventSection>();
     }
 
     static create(command: CreateEventCommand) {
@@ -70,7 +74,8 @@ export class Event extends AggregateRoot {
             is_published: this.is_published,
             total_spots: this.total_spots,
             total_spots_reserved: this.total_spots_reserved,
-            partner_id: this.partner_id
+            partner_id: this.partner_id,
+            sections: [...this.sections].map((section)  => section.toJSON())
         }
     }
 }
