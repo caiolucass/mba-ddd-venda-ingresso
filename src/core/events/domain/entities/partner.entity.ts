@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { AggregateRoot } from "src/core/common/domain/aggregate.root";
 import Uuid from "src/core/common/domain/value-objects/uuid.vo";
@@ -20,7 +21,7 @@ export class Partner extends AggregateRoot {
     id: PartnerId;
     name: string;
 
-    constructor(props: PartnerConstructorProps) {
+    constructor(props: PartnerConstructorProps, id?: PartnerId) {
         super();
         this.id = 
         typeof props.id === 'string'

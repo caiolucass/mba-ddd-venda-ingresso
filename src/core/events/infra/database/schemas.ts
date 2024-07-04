@@ -1,11 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { EntitySchema } from "@mikro-orm/mysql";
+import { EntitySchema } from "@mikro-orm/core";
 import { Partner } from "../../domain/entities/partner.entity";
+import { PartnerIdSchemaType } from "./types/partiner-id.schema.type";
 
 export const PartnerSchema = new EntitySchema<Partner>({
     class: Partner,
     properties: {
-        id: {primary: true, type: 'uuid'},
+        id: {primary: true, type: new PartnerIdSchemaType()},
         name: {type: 'string', length: 255},
     },
 });
