@@ -2,21 +2,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { EntityProperty, Platform, Type } from "@mikro-orm/core";
-import { PartnerId } from "src/core/events/domain/entities/partner.entity";
+import { EventSpotId } from "src/core/events/domain/entities/event.spot";
 
-export class PartnerIdSchemaType extends Type<PartnerId, string> {
+export class EventSpotIdSchemaType extends Type<EventSpotId, string> {
     convertToDataBaseValue(
-        valueObject: PartnerId | undefined | null,
+        valueObject: EventSpotId | undefined | null,
         platform: Platform,
     ): string {
-        return valueObject instanceof PartnerId
+        return valueObject instanceof EventSpotId
         ? valueObject.value
         : (valueObject as string);
     }
 
     // nao funciona para relacionamentos
-    convertToJsValue(value: string, platform: Platform): PartnerId {
-        return new PartnerId(value);
+    convertToJsValue(value: string, platform: Platform): EventSpotId {
+        return new EventSpotId(value);
     }
 
     getColumnType(prop: EntityProperty, platform: Platform) {

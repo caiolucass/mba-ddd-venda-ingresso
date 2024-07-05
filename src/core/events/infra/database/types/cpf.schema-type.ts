@@ -2,24 +2,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { EntityProperty, Platform, Type } from "@mikro-orm/core";
-import { PartnerId } from "src/core/events/domain/entities/partner.entity";
+import Cpf from "src/core/common/domain/value-objects/cpf.vo";
 
-export class PartnerIdSchemaType extends Type<PartnerId, string> {
+export class CpfIdSchemaType extends Type<Cpf, string> {
     convertToDataBaseValue(
-        valueObject: PartnerId | undefined | null,
+        valueObject: Cpf | undefined | null,
         platform: Platform,
     ): string {
-        return valueObject instanceof PartnerId
+        return valueObject instanceof Cpf
         ? valueObject.value
         : (valueObject as string);
     }
 
     // nao funciona para relacionamentos
-    convertToJsValue(value: string, platform: Platform): PartnerId {
-        return new PartnerId(value);
+    convertToJsValue(value: string, platform: Platform): Cpf {
+        return new Cpf(value);
     }
 
     getColumnType(prop: EntityProperty, platform: Platform) {
-        return `VARCHAR(36)`;
+        return `VARCHAR(11)`;
     }
 }
