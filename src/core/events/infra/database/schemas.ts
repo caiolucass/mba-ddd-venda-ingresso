@@ -12,6 +12,7 @@ import { CustomerIdSchemaType } from "./types/customer-id.schema-type";
 import { EventSpot } from "../../domain/entities/event.spot";
 import { EventSpotIdSchemaType } from "./types/event-spot-id.schema-type";
 import { CpfIdSchemaType } from "./types/cpf.schema-type";
+import { inherits } from "util";
 
 export const PartnerSchema = new EntitySchema<Partner>({
     class: Partner,
@@ -89,7 +90,8 @@ export const EventSectionSchema = new EntitySchema<EventSection>({
         hidden: true,
         mapToPk: true,
         type: new EventIdSchemaType(),
-    }
+        inherits: true,
+    },
   },
 });
 
