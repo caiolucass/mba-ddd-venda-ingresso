@@ -22,7 +22,7 @@ export class PartnerService {
     const partner = await this.partnerRepo.findById(id);
 
     if(!partner){
-        throw new Error('Partner not found')
+        throw new Error('Partner not found');
     }
 
     input.name && partner.changeName(input.name);
