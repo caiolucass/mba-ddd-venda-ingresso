@@ -8,7 +8,6 @@ import { EventSectionId } from '../domain/entities/event-section.entity';
 import { EventSpotId } from '../domain/entities/event-spot.entity';
 import { SpotReservationRepositoryInterface } from '../domain/repositories/spot-reservation-repository.interface';
 import { Order } from '../domain/entities/order.entity';
-
 export class OrderService {
   constructor(
     private orderRepo: OrderRepositoryInterface,
@@ -69,7 +68,14 @@ export class OrderService {
     });
 
     await this.orderRepo.add(order);
-    this.uow.commit();
+
+    event.markSpotAsReserved({
+      section_id: sectionId,
+      spot_id: spotId
+    });
+
+    this.eventRepo.add(event);
+    await this.uow.commit();
     return order;
   }
 }
