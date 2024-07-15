@@ -2,8 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { EntityProperty, Platform, Type } from "@mikro-orm/core";
-import { EventSpotId } from "src/core/events/domain/entities/event.spot";
-
+import { EventSpotId } from "src/core/events/domain/entities/event-spot.entity";
 export class EventSpotIdSchemaType extends Type<EventSpotId, string> {
     convertToDataBaseValue(
         valueObject: EventSpotId | undefined | null,

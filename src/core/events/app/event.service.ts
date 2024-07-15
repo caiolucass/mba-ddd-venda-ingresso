@@ -4,8 +4,8 @@
 import { UnitOfWorkInterface } from 'src/core/common/app/unit-of-work-.interface';
 import { EventRepositoryInterface } from '../domain/repositories/event-repository.interface';
 import { PartnerRepositoryInterface } from '../domain/repositories/partner-repository.interface';
-import { EventSectionId } from '../domain/entities/event-section';
-import { EventSpot, EventSpotId } from '../domain/entities/event.spot';
+import { EventSectionId } from '../domain/entities/event-section.entity';
+import { EventSpot, EventSpotId } from '../domain/entities/event-spot.entity';
 
 export class EventService {
   constructor(private eventRepo: EventRepositoryInterface, 

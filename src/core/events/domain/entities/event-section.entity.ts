@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Entity } from "src/core/common/domain/entity";
 import Uuid from "src/core/common/domain/value-objects/uuid.vo";
-import { EventSpot, EventSpotId } from "./event.spot";
+import { EventSpot, EventSpotId } from "./event-spot.entity";
 import { AnyCollection, ICollection, MyCollectionFactory } from "src/core/common/domain/my-collection";
 
 export class EventSectionId extends Uuid {}
@@ -86,6 +86,29 @@ export class EventSection extends Entity {
             throw new Error('Spot not found');
         }
         spot.changeLocation(command.location);
+    }
+
+    allowReserveSpot(spot_id: EventSpotId) {
+        if(!this.is_published){
+            return false;
+        }
+        
+        const spot = this.sections.find((spot) =>
+            spot.id.equals(spot_id));
+
+        if(!spot){
+            throw new Error('Spot not found');
+        }
+
+        if(spot.is_reserved){
+            return false;
+        }
+
+        if(!spot.is_published){
+            return false;
+        }
+
+        return true;
     }
 
     publishAll() {
