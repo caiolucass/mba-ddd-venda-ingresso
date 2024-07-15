@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { Cascade, EntitySchema } from "@mikro-orm/core";
 import { Partner } from "../../domain/entities/partner.entity";

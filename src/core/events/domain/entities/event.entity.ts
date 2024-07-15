@@ -8,7 +8,7 @@ import {
   ICollection,
   MyCollectionFactory,
 } from 'src/core/common/domain/my-collection';
-import { EventSpotId } from './event-spot.entity';
+import {EventSpotId } from './event-spot.entity';
 
 export class EventId extends Uuid {}
 
@@ -99,6 +99,19 @@ export class Event extends AggregateRoot {
     }
     'name' in command && section.changeName(command.name);
     'description' in command && section.changeDescription(command.description);
+  }
+
+  markSpotAsReserved(command: {
+    section_id: EventSectionId,
+    spot_id: EventSpotId;
+  }){
+    const section = this.sections.find((section) => section.id.equals(command.section_id));
+
+    if(!section){
+      throw new Error('Section not found');
+    }
+
+    section.markSpotAsReserved(command.spot_id);
   }
 
   changeLocation(command: {

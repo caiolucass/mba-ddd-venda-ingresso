@@ -50,6 +50,10 @@ export class EventSpot extends Entity {
         this.is_published = this.is_published;
     }
 
+    markAsReserved(){
+        this.is_reserved = true;
+    }
+
     toJSON() {
         return {
             id: this.id,
