@@ -50,6 +50,14 @@ export class Order extends AggregateRoot {
         return new Order(props);
     }
 
+    pay(){
+        this.status = OrderStatus.PAID;
+    }
+
+    cancel(){
+       this.status = OrderStatus.CANCELLED;
+    }
+
     toJSON() {
         return {
             id: this.id.value,

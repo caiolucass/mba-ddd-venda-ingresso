@@ -145,6 +145,18 @@ export class Event extends AggregateRoot {
     return section.allowReserveSpot(data.spot_id);
   }
 
+  markSpotAsReserver(command: {
+    section_id: EventSectionId;
+    spot_id: EventSpotId;
+  }){
+    const section = this.sections.find((s) => s.id.equals(command.section_id));
+
+    if(!section){
+      throw new Error('Section not found');
+    }
+    section.markSpotAsReserved(command.section_id);
+  }
+
   changeName(name: string) {
     this.name = name;
   }

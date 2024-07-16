@@ -107,7 +107,6 @@ export class EventSection extends Entity {
         if(!spot.is_published){
             return false;
         }
-
         return true;
     }
 
