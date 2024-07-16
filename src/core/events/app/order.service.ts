@@ -8,6 +8,7 @@ import { EventSectionId } from '../domain/entities/event-section.entity';
 import { EventSpotId } from '../domain/entities/event-spot.entity';
 import { SpotReservationRepositoryInterface } from '../domain/repositories/spot-reservation-repository.interface';
 import { Order } from '../domain/entities/order.entity';
+import { PaymentGateway } from './payment.gateway';
 export class OrderService {
   constructor(
     private orderRepo: OrderRepositoryInterface,
@@ -15,6 +16,7 @@ export class OrderService {
     private eventRepo: EventRepositoryInterface,
     private spotReservationRepo: SpotReservationRepositoryInterface,
     private uow: UnitOfWorkInterface,
+    private paymentGateway: PaymentGateway,
   ) {}
 
   list() {
@@ -26,6 +28,7 @@ export class OrderService {
     section_id: string;
     spot_id: string;
     customer_id: string;
+    card_token: string;
   }) {
     const customer = await this.customerRepo.findById(input.customer_id);
     if (!customer) {
@@ -60,11 +63,15 @@ export class OrderService {
   
       try{
         await this.uow.commit();
-    
-        //pagamento
+
         const section = event.sections.find((section) =>
          section.id.equals(sectionId),
         );
+
+        await this.paymentGateway.payment({
+          token: input.card_token,
+          amount: section.price,
+        })
   
         const order = Order.create({
           customer_id: customer.id,
@@ -72,6 +79,7 @@ export class OrderService {
           amount: section.price,
         });
   
+        order.pay();
         await this.orderRepo.add(order);
   
          event.markSpotAsReserved({
