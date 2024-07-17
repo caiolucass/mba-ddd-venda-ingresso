@@ -2,7 +2,7 @@
 import { EntityManager } from "@mikro-orm/mysql";
 import { UnitOfWorkInterface } from "../app/unit-of-work-.interface";
 
-export class UnitOfWorOrm implements UnitOfWorkInterface {
+export class UnitOfWorMikroOrm implements UnitOfWorkInterface {
 
     constructor(private em: EntityManager){}
 
@@ -29,5 +29,4 @@ export class UnitOfWorOrm implements UnitOfWorkInterface {
     async rollback(): Promise<void> {
         return this.em.clear();
     }
-    
 }
