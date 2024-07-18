@@ -2,7 +2,7 @@
 import { EntityManager } from '@mikro-orm/mysql';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Global, Module } from '@nestjs/common';
-import { UnitOfWorMikroOrm } from 'src/core/common/infra/unit-of-work-mikro-orm';
+import { UnitOfWorkMikroOrm } from 'src/core/common/infra/unit-of-work-mikro-orm';
 import { CustomerSchema, EventSchema, EventSectionSchema, EventSpotSchema, OrderSchema, PartnerSchema, SpotReservationSchema } from 'src/core/events/infra/database/schemas';
 
 @Global()
@@ -30,7 +30,7 @@ import { CustomerSchema, EventSchema, EventSectionSchema, EventSpotSchema, Order
         {
             provide: 'UnitOfWorkInterface',
             useFactory(em: EntityManager){
-               return new UnitOfWorMikroOrm(em);
+               return new UnitOfWorkMikroOrm(em);
             },
             inject:[EntityManager]
         },

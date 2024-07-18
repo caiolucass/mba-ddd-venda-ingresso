@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { Cascade, EntitySchema } from "@mikro-orm/core";
 import { Partner } from "../../domain/entities/partner.entity";
-import { PartnerIdSchemaType } from "./types/partiner-id.schema.type";
+import { PartnerIdSchemaType } from "./types/partner-id.schema.type";
 import { Customer } from "../../domain/entities/customer.entity";
 import { EventIdSchemaType } from "./types/event-id.schema.type";
 import { Event } from "../../domain/entities/event.entity";
@@ -12,7 +12,8 @@ import { EventSpotIdSchemaType } from "./types/event-spot-id.schema-type";
 import { CpfIdSchemaType } from "./types/cpf.schema-type";
 import { SpotReservation } from "../../domain/entities/spot-reservation.entity";
 import { Order, OrderStatus } from "../../domain/entities/order.entity";
-import { OrderSchemaIdSchemaType } from "./types/order-id.schema-type";
+import { OrderIdSchemaType } from "./types/order-id.schema-type";
+import { EventSectionIdSchemaType } from "./types/event-section-id.schema-type";
 
 export const PartnerSchema = new EntitySchema<Partner>({
     class: Partner,
@@ -47,6 +48,7 @@ export const EventSchema = new EntitySchema<Event>({
     date: {type: 'date'},
     is_published: {type: 'boolean', default: false},
     total_spots: {type: 'number', default: 0},
+    total_spots_reserved:  {type: 'number', default: 0},
     sections: {
         kind: '1:m',
         entity: () => EventSection,
@@ -84,7 +86,7 @@ export const EventSectionSchema = new EntitySchema<EventSection>({
         eager: true,
         cascade: [Cascade.ALL],
     },
-    partner_id: {
+    event_id: {
         reference: 'm:1',
         entity: () => Event,
         hidden: true,
@@ -109,6 +111,7 @@ export const EventSpotSchema = new EntitySchema<EventSpot>({
         kind: 'm:1',
         hidden: true,
         eager: true,
+        type: new EventSectionIdSchemaType(),
     },
   },
 });
@@ -116,29 +119,29 @@ export const EventSpotSchema = new EntitySchema<EventSpot>({
 export const SpotReservationSchema = new EntitySchema<SpotReservation>({
     class: SpotReservation,
     properties: {
-      spot_id: {
-        type: new EventSpotIdSchemaType(),
-        primary: true,
-        kind: 'm:1',
-        entity: () => EventSpot,
-        mapToPk: true,
-      },
-      reservation_date: {type: 'date'},
-      customer_id: {
-        kind: 'm:1',
-        entity: () => Customer,
-        mapToPk: true,
-        hidden: true,
-        type: new CustomerIdSchemaType(),
-      }
+        spot_id: {
+            type: new EventSpotIdSchemaType(),
+            primary: true,
+            kind: 'm:1',
+            entity: () => EventSpot,
+            mapToPk: true,
+        },
+        reservation_date: { type: 'date' },
+        customer_id: {
+            kind: 'm:1',
+            entity: () => Customer,
+            mapToPk: true,
+            hidden: true,
+            type: new CustomerIdSchemaType(),
+        },
     },
-});
+  });
 
 export const OrderSchema = new EntitySchema<Order>({
     class: Order,
     properties: {
         id: {
-            type: new OrderSchemaIdSchemaType(),
+            type: new OrderIdSchemaType(),
             primary: true,
         },
         amount: {type: 'number'},

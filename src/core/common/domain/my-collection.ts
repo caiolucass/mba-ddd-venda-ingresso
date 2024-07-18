@@ -7,7 +7,7 @@ export interface ICollection<T extends object> {
     add(item: T, ...items: T[]): void;
     remove(item: T, ...items: T[]): void;
     find(predicate: (item: T) => boolean): T | undefined;
-    forEach(callbackfn: (value: T, index: number) => void): void;
+    // forEach(callbackfn: (value: T, index: number) => void): void;
     removeAll(): void;
     count(): number;
     [Symbol.iterator](): IterableIterator<T>;
@@ -37,7 +37,6 @@ export class MyCollectionFactory {
                     };
                 }
 
-                
                 if(prop === 'forEach'){
                     return (callbackfn: (value: T, index: number) => void): void => {
                         return target.getItems(false).forEach(callbackfn);

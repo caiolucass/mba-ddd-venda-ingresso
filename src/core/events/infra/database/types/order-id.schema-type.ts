@@ -4,7 +4,7 @@
 import { EntityProperty, Platform, Type } from "@mikro-orm/core";
 import { Order, OrderId } from "src/core/events/domain/entities/order.entity";
 
-export class OrderSchemaIdSchemaType extends Type<Order, string> {
+export class OrderIdSchemaType extends Type<Order, string> {
 
     convertToDataBaseValue(
         valueObject: OrderId | undefined | null,

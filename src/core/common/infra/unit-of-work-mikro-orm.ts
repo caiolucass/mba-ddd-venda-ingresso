@@ -2,7 +2,7 @@
 import { EntityManager } from "@mikro-orm/mysql";
 import { UnitOfWorkInterface } from "../app/unit-of-work-.interface";
 
-export class UnitOfWorMikroOrm implements UnitOfWorkInterface {
+export class UnitOfWorkMikroOrm implements UnitOfWorkInterface {
 
     constructor(private em: EntityManager){}
 
