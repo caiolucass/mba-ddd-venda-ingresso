@@ -25,6 +25,8 @@ import { PartnerRepositoryInterface } from 'src/core/events/domain/repositories/
 import { UnitOfWorkInterface } from 'src/core/common/app/unit-of-work-.interface';
 import { CustomerRepositoryInterface } from 'src/core/events/domain/repositories/customer-repository.interface';
 import { EventRepositoryInterface } from 'src/core/events/domain/repositories/event-repository.interface';
+import { PartnersController } from './partners/partners.controller';
+import { CustomersController } from './customers/customers.controller';
 
 @Module({
   imports: [
@@ -118,5 +120,6 @@ import { EventRepositoryInterface } from 'src/core/events/domain/repositories/ev
         ],
     },
   ],
+  controllers: [PartnersController, CustomersController],
 })
 export class EventsModule {}
