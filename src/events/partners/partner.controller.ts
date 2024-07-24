@@ -3,7 +3,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { PartnerService } from 'src/core/events/app/partner.service';
 
 @Controller('partners')
-export class PartnersController {
+export class PartnerController {
     constructor(private partnerService: PartnerService){}
 
     @Get()

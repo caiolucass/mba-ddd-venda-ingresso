@@ -25,8 +25,10 @@ import { PartnerRepositoryInterface } from 'src/core/events/domain/repositories/
 import { UnitOfWorkInterface } from 'src/core/common/app/unit-of-work-.interface';
 import { CustomerRepositoryInterface } from 'src/core/events/domain/repositories/customer-repository.interface';
 import { EventRepositoryInterface } from 'src/core/events/domain/repositories/event-repository.interface';
-import { PartnersController } from './partners/partners.controller';
-import { CustomersController } from './customers/customers.controller';
+import { PartnerController } from './partners/partner.controller';
+import { CustomerController } from './customers/customer.controller';
+import { EventController } from './events/event.controller';
+import { OrderController } from './orders/order.controller';
 
 @Module({
   imports: [
@@ -120,6 +122,6 @@ import { CustomersController } from './customers/customers.controller';
         ],
     },
   ],
-  controllers: [PartnersController, CustomersController],
+  controllers: [PartnerController, CustomerController, EventController, OrderController],
 })
 export class EventsModule {}

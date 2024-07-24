@@ -9,5 +9,37 @@ Content-Type: application/json
     "name": "Partner 1"
 }
 
+GET http://localhost:3000/customers
 
+POST http://localhost:3000/customers
+Content-Type: application/json
+
+{
+    "name": "Customer 1",
+    "cpf": "592.110.870-74"
+}
+
+GET http://localhost:3000/events
+
+POST http://localhost:3000/events
+Content-Type: application/json
+
+{
+    "name": "Event 1",
+    "description": "Description 1",
+    "date": 2020-01-01T00:00:00Z",
+    "partner_id": {{partner_id}}
+}
+
+GET http://localhost:3000/events/{{event_id}}/sections
+
+POST http://localhost:3000/events/{{event_id}}/sections
+Content-Type: application/json
+
+{
+    "name": "Section 1",
+    "description": "Description 1",
+    "total_spots": 1",
+    "price": 200
+}
 

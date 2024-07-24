@@ -3,7 +3,7 @@ import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CustomerService } from 'src/core/events/app/customer.service';
 
 @Controller('customers')
-export class CustomersController {
+export class CustomerController {
     constructor(private customerService: CustomerService){}
 
     @Get()
