@@ -5,9 +5,9 @@ import { PartnerId } from '../entities/partner.entity';
 /* eslint-disable prettier/prettier */
 export class PartnerCreated implements DomainEventInterface {
     readonly event_version: number = 1;
-    readonly ocurred_on: Date;
+    readonly occurred_on: Date;
 
     constructor(readonly aggregate_id: PartnerId, readonly name: string) {
-        this.ocurred_on = new Date();
+        this.occurred_on = new Date();
     }
 }

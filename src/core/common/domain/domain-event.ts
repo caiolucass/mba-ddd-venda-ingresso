@@ -3,6 +3,6 @@ import { ValueObject } from "./value-objects";
 
 export interface DomainEventInterface {
     aggregate_id: ValueObject;
-    ocurred_on: Date;
+    occurred_on: Date;
     event_version: number;
 }
