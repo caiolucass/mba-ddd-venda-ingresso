@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { EntityManager } from "@mikro-orm/mysql";
 import { UnitOfWorkInterface } from "../app/unit-of-work-.interface";
+import { AggregateRoot } from "../domain/aggregate.root";
 
 export class UnitOfWorkMikroOrm implements UnitOfWorkInterface {
-
     constructor(private em: EntityManager){}
 
     beginTransaction(): Promise<void> {
@@ -28,5 +28,12 @@ export class UnitOfWorkMikroOrm implements UnitOfWorkInterface {
 
     async rollback(): Promise<void> {
         return this.em.clear();
+    }
+
+    getAggregateRoots(): AggregateRoot[] {
+        return [
+            ...this.em.getUnitOfWork().getPersistStack(),
+            ...this.em.getUnitOfWork().getRemoveStack(),
+        ] as AggregateRoot[];
     }
 }

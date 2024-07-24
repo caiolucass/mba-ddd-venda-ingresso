@@ -1,4 +1,6 @@
 /* eslint-disable prettier/prettier */
+import { AggregateRoot } from '../domain/aggregate.root';
+
 export interface UnitOfWorkInterface {
     beginTransaction(): Promise<void>;
     completeTransaction(): Promise<void>;
@@ -6,4 +8,5 @@ export interface UnitOfWorkInterface {
     runTransaction<T>(callback: () => Promise<T>): Promise<T>;
     commit(): Promise<void>;
     rollback(): Promise<void>;
+    getAggregateRoots(): AggregateRoot[];
 }
