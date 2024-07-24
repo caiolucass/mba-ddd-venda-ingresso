@@ -3,11 +3,12 @@ import { Collection } from '@mikro-orm/core';
 
 /* eslint-disable prettier/prettier */
 export interface ICollection<T extends object> {
+    forEach(arg0: (section: any) => any): unknown;
     getItems(): Iterable<T>;
     add(item: T, ...items: T[]): void;
     remove(item: T, ...items: T[]): void;
     find(predicate: (item: T) => boolean): T | undefined;
-    // forEach(callbackfn: (value: T, index: number) => void): void;
+    forEach(callbackfn: (value: T, index: number) => void): void;
     removeAll(): void;
     count(): number;
     [Symbol.iterator](): IterableIterator<T>;
