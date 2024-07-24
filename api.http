@@ -43,3 +43,33 @@ Content-Type: application/json
     "price": 200
 }
 
+PUT http://localhost:3000/events/{{event_id}}/publish-all
+
+POST http://localhost:3000/events/{{event_id}}/sections/{{section_id}}
+Content-Type: application/json
+
+{
+    "name": "Section 1 updatedddd",
+    "description": Description 1 updatedddd
+}
+
+GET http://localhost:3000/events/{{event_id}}/sections/{{section_id}}/spots
+
+PUT http://localhost:3000/events/{{event_id}}/sections/{{section_id}}/spots/
+Content-Type: application/json
+
+{
+    "location": Location 1 updatedddd
+}
+
+GET http://localhost:3000/events/{{event_id}}/orders
+
+POST http://localhost:3000/events/{{event_id}}/orders
+Content-Type: application/json
+
+{
+    "customer_id": "{{customer_id}}",
+    "section_id": "{{section_id}}",
+    "spot_id": "{{spot_id}}",
+    "card_token": "token_visa"
+}

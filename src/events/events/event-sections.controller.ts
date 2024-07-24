@@ -3,7 +3,6 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { EventService } from 'src/core/events/app/event.service';
-import { EventDto } from './event.dto';
 
 @Controller('events/:event_id/sections')
 export class EventSectionsController {
@@ -33,23 +32,22 @@ export class EventSectionsController {
     publish(@Param('event_id') event_id: string) {
         return this.eventService.publishAll({event_id: event_id})
     }
+
+    @Put(':section_id')
+    update(
+        @Param('event_id') event_id: string,
+        @Param('section_id') section_id: string,
+        @Body()
+        body: {
+            name: string;
+            description?: string | null
+        },
+    ){
+        return this.eventService.updateSection({
+            ...body,
+            event_id: event_id,
+            section_id: section_id,
+        });
+    }
 }
-
-    const getSizeInBytes = (obj) => {
-        let str = null;
-        
-        if(typeof obj === 'string') {
-            str = obj;
-        }else{
-            str = JSON.stringify(obj);
-        }
-
-        const bytes = new TextEncoder().encode(str).length;
-        return bytes;
-    };
-
-    const logSizeInBytes = (description, obj) => {
-        const bytes = getSizeInBytes(obj);
-        console.log(`${description} is approximately ${bytes} B`)
-    };
 

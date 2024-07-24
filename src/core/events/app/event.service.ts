@@ -86,7 +86,6 @@ export class EventService {
     name: string;
     description?: string | null;
     event_id: string;
-    section: string;
     section_id: string;
   }){
     const event = await this.eventRepo.findById(input.event_id);
