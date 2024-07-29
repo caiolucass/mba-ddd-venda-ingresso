@@ -21,6 +21,7 @@ export class DomainEventManager {
       for(const event of aggregateRoot.events){
         const eventClassName = event.constructor.name;
         await this.eventEmitter.emitAsync(eventClassName, event);
+        aggregateRoot.clearEvent();
       }
     }
 }

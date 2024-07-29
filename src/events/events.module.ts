@@ -4,7 +4,7 @@ import { EventMysqlRepository } from './../core/events/infra/database/repositori
 import { CustomerMysqlRepository } from './../core/events/infra/database/repositories/customer-mysql.repository';
 import { EntityManager } from '@mikro-orm/mysql';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { Module } from '@nestjs/common';
+import { Module,OnModuleInit } from '@nestjs/common';
 import { PartnerMysqlRepository } from 'src/core/events/infra/database/repositories/partner-mysql.repository';
 import {
   CustomerSchema,
@@ -29,6 +29,10 @@ import { PartnerController } from './partners/partner.controller';
 import { CustomerController } from './customers/customer.controller';
 import { EventController } from './events/event.controller';
 import { OrderController } from './orders/order.controller';
+import { MyHandlerHandler } from 'src/core/common/app/handlers/my-handler.handler';
+import { ApplicationService } from 'src/core/common/app/application.service';
+import { DomainEventManager } from 'src/core/common/domain/domain-event-manager';
+import { ModuleRef } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -80,7 +84,7 @@ import { OrderController } from './orders/order.controller';
     },
     {
       provide: PartnerService,
-      useFactory: (partnerRepo: PartnerRepositoryInterface, uow: UnitOfWorkInterface) => new PartnerService(partnerRepo, uow),
+      useFactory: (partnerRepo: PartnerRepositoryInterface, appService: ApplicationService) => new PartnerService(partnerRepo, appService),
       inject: ['PartnerRepositoryInterface', 'UnitOfWorkInterface'],
     },
     {
@@ -121,7 +125,28 @@ import { OrderController } from './orders/order.controller';
           PaymentGateway,
         ],
     },
+    {
+      provide: MyHandlerHandler,
+      useFactory: (partnerRepo: PartnerRepositoryInterface, domainRepo: DomainEventManager) => new MyHandlerHandler(partnerRepo, domainRepo),
+      inject: ['PartnerRepositoryInterface', DomainEventManager],
+    }
   ],
   controllers: [PartnerController, CustomerController, EventController, OrderController],
 })
-export class EventsModule {}
+
+export class EventsModule implements OnModuleInit{
+  constructor(private readonly domainEventManager: DomainEventManager, 
+    private moduleRef: ModuleRef){}
+
+    onModuleInit() {
+      console.log('EventsModule initialized');
+      MyHandlerHandler.listenTo().forEach((eventName: string) => {
+        this.domainEventManager.register(eventName, async (event) => {
+          const handler: MyHandlerHandler = await this.moduleRef.resolve(
+            MyHandlerHandler,
+          );
+          await handler.handle(event);
+        });
+      });
+    }
+}
