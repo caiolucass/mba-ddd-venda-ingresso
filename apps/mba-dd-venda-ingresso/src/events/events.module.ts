@@ -31,8 +31,9 @@ import { EventController } from './events/event.controller';
 import { OrderController } from './orders/order.controller';
 import { MyHandlerHandler } from 'src/core/common/app/handlers/my-handler.handler';
 import { ApplicationService } from 'src/core/common/app/application.service';
-import { DomainEventManager } from 'src/core/common/domain/domain-event-manager';
+import { DomainEventManager } from './../core/common/domain/domain-event-manager';
 import { ModuleRef } from '@nestjs/core';
+import { BullModule } from '@nestjs/bull/dist/bull.module';
 
 @Module({
   imports: [
@@ -45,6 +46,10 @@ import { ModuleRef } from '@nestjs/core';
       OrderSchema,
       SpotReservationSchema,
     ]),
+    ApplicationModule,
+    BullModule.registerQueue({
+      name: 'integration-events',
+    }),
   ],
   providers: [
     {
