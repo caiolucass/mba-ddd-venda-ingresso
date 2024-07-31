@@ -1,8 +1,9 @@
+/* eslint-disable prettier/prettier */
 import { NestFactory } from '@nestjs/core';
 import { EmailsModule } from './emails.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(EmailsModule);
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

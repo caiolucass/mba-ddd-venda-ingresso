@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { OrderService } from 'src/core/events/app/order.service';
+import { OrderService } from 'apps/mba-dd-venda-ingresso/src/core/events/app/order.service';
 
 @Controller('events/:event_id/orders')
 export class OrderController {

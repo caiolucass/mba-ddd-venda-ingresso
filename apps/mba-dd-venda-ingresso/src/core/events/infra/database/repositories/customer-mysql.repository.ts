@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { EntityManager } from "@mikro-orm/mysql";
-import { Customer, CustomerId } from "src/core/events/domain/entities/customer.entity";
-import { CustomerRepositoryInterface } from "src/core/events/domain/repositories/customer-repository.interface";
+import { Customer, CustomerId } from "apps/mba-dd-venda-ingresso/src/core/events/domain/entities/customer.entity";
+import { CustomerRepositoryInterface } from "apps/mba-dd-venda-ingresso/src/core/events/domain/repositories/customer-repository.interface";
 
 export class CustomerMysqlRepository implements CustomerRepositoryInterface {
 

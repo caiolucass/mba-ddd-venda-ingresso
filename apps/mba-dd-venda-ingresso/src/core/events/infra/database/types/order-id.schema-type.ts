@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { EntityProperty, Platform, Type } from "@mikro-orm/core";
-import { Order, OrderId } from "src/core/events/domain/entities/order.entity";
+import { Order, OrderId } from "apps/mba-dd-venda-ingresso/src/core/events/domain/entities/order.entity";
 
 export class OrderIdSchemaType extends Type<Order, string> {
 

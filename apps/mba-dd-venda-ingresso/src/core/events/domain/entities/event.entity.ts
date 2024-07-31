@@ -1,14 +1,14 @@
 /* eslint-disable prettier/prettier */
-import { AggregateRoot } from 'src/core/common/domain/aggregate.root';
-import { PartnerId } from './partner.entity';
-import Uuid from 'src/core/common/domain/value-objects/uuid.vo';
-import { EventSection, EventSectionId } from './event-section.entity';
+import { AggregateRoot } from 'apps/mba-dd-venda-ingresso/src/core/common/domain/aggregate.root';
 import {
   AnyCollection,
   ICollection,
   MyCollectionFactory,
-} from 'src/core/common/domain/my-collection';
-import {EventSpotId } from './event-spot.entity';
+} from "apps/mba-dd-venda-ingresso/src/core/common/domain/my-collection";
+import Uuid from 'apps/mba-dd-venda-ingresso/src/core/common/domain/value-objects/uuid.vo';
+import { EventSection, EventSectionId } from './event-section.entity';
+import { EventSpotId } from './event-spot.entity';
+import { PartnerId } from './partner.entity';
 
 export class EventId extends Uuid {}
 

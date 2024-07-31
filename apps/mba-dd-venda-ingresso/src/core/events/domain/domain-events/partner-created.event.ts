@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { DomainEventInterface } from '../../../../core/common/domain/domain-event';
+import { DomainEventInterface } from '../../../common/domain/domain-event-interface';
 import { ValueObject } from '../../../common/domain/value-objects';
 
 export class PartnerCreated implements DomainEventInterface {

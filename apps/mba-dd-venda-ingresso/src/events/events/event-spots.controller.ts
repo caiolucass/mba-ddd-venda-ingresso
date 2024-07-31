@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { EventService } from 'src/core/events/app/event.service';
+import { Body, Controller, Get, Param, Put } from '@nestjs/common';
+import { EventService } from 'apps/mba-dd-venda-ingresso/src/core/events/app/event.service';
 
 @Controller('events/:event_id/sections/:section_id/spots')
 export class EventSpotsController {

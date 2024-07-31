@@ -1,11 +1,22 @@
 /* eslint-disable prettier/prettier */
-import { SpotReservationMysqlRepository } from './../core/events/infra/database/repositories/spot-reservation-mysql.repository';
-import { EventMysqlRepository } from './../core/events/infra/database/repositories/event-mysql.repository';
-import { CustomerMysqlRepository } from './../core/events/infra/database/repositories/customer-mysql.repository';
 import { EntityManager } from '@mikro-orm/mysql';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
-import { Module,OnModuleInit } from '@nestjs/common';
-import { PartnerMysqlRepository } from 'src/core/events/infra/database/repositories/partner-mysql.repository';
+import { BullModule } from '@nestjs/bull/dist/bull.module';
+import { Module, OnModuleInit } from '@nestjs/common';
+import { ModuleRef } from '@nestjs/core';
+import { ApplicationService } from 'apps/mba-dd-venda-ingresso/src/core/common/app/application.service';
+import { MyHandlerHandler } from 'apps/mba-dd-venda-ingresso/src/core/common/app/handlers/my-handler.handler';
+import { UnitOfWorkInterface } from 'apps/mba-dd-venda-ingresso/src/core/common/app/unit-of-work-.interface';
+import { CustomerService } from 'apps/mba-dd-venda-ingresso/src/core/events/app/customer.service';
+import { EventService } from 'apps/mba-dd-venda-ingresso/src/core/events/app/event.service';
+import { OrderService } from 'apps/mba-dd-venda-ingresso/src/core/events/app/order.service';
+import { PartnerService } from 'apps/mba-dd-venda-ingresso/src/core/events/app/partner.service';
+import { PaymentGateway } from 'apps/mba-dd-venda-ingresso/src/core/events/app/payment.gateway';
+import { CustomerRepositoryInterface } from 'apps/mba-dd-venda-ingresso/src/core/events/domain/repositories/customer-repository.interface';
+import { EventRepositoryInterface } from 'apps/mba-dd-venda-ingresso/src/core/events/domain/repositories/event-repository.interface';
+import { PartnerRepositoryInterface } from 'apps/mba-dd-venda-ingresso/src/core/events/domain/repositories/partner-repository.interface';
+import { OrderMysqlRepository } from 'apps/mba-dd-venda-ingresso/src/core/events/infra/database/repositories/order-mysql.repository';
+import { PartnerMysqlRepository } from 'apps/mba-dd-venda-ingresso/src/core/events/infra/database/repositories/partner-mysql.repository';
 import {
   CustomerSchema,
   EventSchema,
@@ -14,26 +25,19 @@ import {
   OrderSchema,
   PartnerSchema,
   SpotReservationSchema,
-} from 'src/core/events/infra/database/schemas';
-import { OrderMysqlRepository } from 'src/core/events/infra/database/repositories/order-mysql.repository';
-import { PartnerService } from 'src/core/events/app/partner.service';
-import { CustomerService } from 'src/core/events/app/customer.service';
-import { EventService } from 'src/core/events/app/event.service';
-import { PaymentGateway } from 'src/core/events/app/payment.gateway';
-import { OrderService } from 'src/core/events/app/order.service';
-import { PartnerRepositoryInterface } from 'src/core/events/domain/repositories/partner-repository.interface';
-import { UnitOfWorkInterface } from 'src/core/common/app/unit-of-work-.interface';
-import { CustomerRepositoryInterface } from 'src/core/events/domain/repositories/customer-repository.interface';
-import { EventRepositoryInterface } from 'src/core/events/domain/repositories/event-repository.interface';
-import { PartnerController } from './partners/partner.controller';
+} from 'apps/mba-dd-venda-ingresso/src/core/events/infra/database/schemas';
+import { Queue } from 'bull';
+import { IntegrationInterfaceEvent } from '../core/common/integration-event';
+import { PartnerCreated } from '../core/events/domain/domain-events/partner-created.event';
+import { PartnerCreatedIntegrationEvent } from '../core/events/domain/integration-events/partner-created.init-events';
+import { DomainEventManager } from './../core/common/domain/domain-event-manager';
+import { CustomerMysqlRepository } from './../core/events/infra/database/repositories/customer-mysql.repository';
+import { EventMysqlRepository } from './../core/events/infra/database/repositories/event-mysql.repository';
+import { SpotReservationMysqlRepository } from './../core/events/infra/database/repositories/spot-reservation-mysql.repository';
 import { CustomerController } from './customers/customer.controller';
 import { EventController } from './events/event.controller';
 import { OrderController } from './orders/order.controller';
-import { MyHandlerHandler } from 'src/core/common/app/handlers/my-handler.handler';
-import { ApplicationService } from 'src/core/common/app/application.service';
-import { DomainEventManager } from './../core/common/domain/domain-event-manager';
-import { ModuleRef } from '@nestjs/core';
-import { BullModule } from '@nestjs/bull/dist/bull.module';
+import { PartnerController } from './partners/partner.controller';
 
 @Module({
   imports: [
@@ -46,7 +50,7 @@ import { BullModule } from '@nestjs/bull/dist/bull.module';
       OrderSchema,
       SpotReservationSchema,
     ]),
-    ApplicationModule,
+    // ApplicationModule,
     BullModule.registerQueue({
       name: 'integration-events',
     }),
@@ -140,8 +144,11 @@ import { BullModule } from '@nestjs/bull/dist/bull.module';
 })
 
 export class EventsModule implements OnModuleInit{
-  constructor(private readonly domainEventManager: DomainEventManager, 
-    private moduleRef: ModuleRef){}
+  constructor(
+    private readonly domainEventManager: DomainEventManager, 
+    private moduleRef: ModuleRef,
+    private integrationEventQueue: Queue<IntegrationInterfaceEvent>,
+    ){}
 
     onModuleInit() {
       console.log('EventsModule initialized');
@@ -152,6 +159,10 @@ export class EventsModule implements OnModuleInit{
           );
           await handler.handle(event);
         });
+      });
+      this.domainEventManager.register(PartnerCreated.name, async (event) => {
+        const integrationEvent = new PartnerCreatedIntegrationEvent(event);
+        await this.integrationEventQueue.add(integrationEvent);
       });
     }
 }

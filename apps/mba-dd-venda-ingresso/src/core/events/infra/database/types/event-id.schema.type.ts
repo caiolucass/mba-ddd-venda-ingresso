@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { EntityProperty, Platform, Type } from "@mikro-orm/core";
-import { EventId } from "src/core/events/domain/entities/event.entity";
+import { EventId } from "apps/mba-dd-venda-ingresso/src/core/events/domain/entities/event.entity";
 
 export class EventIdSchemaType extends Type<EventId, string> {
     convertToDataBaseValue(

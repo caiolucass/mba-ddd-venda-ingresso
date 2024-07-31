@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { PartnerCreated } from "src/core/events/domain/domain-events/partner-created.event";
-import { DomainEventHandlerInterface } from "../domain-event-handler";
-import { PartnerRepositoryInterface } from "src/core/events/domain/repositories/partner-repository.interface";
+import { PartnerCreated } from "apps/mba-dd-venda-ingresso/src/core/events/domain/domain-events/partner-created.event";
+import { PartnerRepositoryInterface } from "apps/mba-dd-venda-ingresso/src/core/events/domain/repositories/partner-repository.interface";
 import { DomainEventManager } from "../../domain/domain-event-manager";
+import { DomainEventHandlerInterface } from "../domain-event-handler";
 
 export class MyHandlerHandler implements DomainEventHandlerInterface {
 

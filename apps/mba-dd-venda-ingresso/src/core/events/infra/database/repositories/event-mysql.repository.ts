@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { EntityManager } from "@mikro-orm/mysql";
-import { Event, EventId } from "src/core/events/domain/entities/event.entity";
-import { EventRepositoryInterface } from "src/core/events/domain/repositories/event-repository.interface";
+import { Event, EventId } from "apps/mba-dd-venda-ingresso/src/core/events/domain/entities/event.entity";
+import { EventRepositoryInterface } from "apps/mba-dd-venda-ingresso/src/core/events/domain/repositories/event-repository.interface";
 
 export class EventMysqlRepository implements EventRepositoryInterface {
 

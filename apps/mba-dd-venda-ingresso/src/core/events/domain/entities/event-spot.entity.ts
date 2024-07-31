@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Entity } from 'src/core/common/domain/entity';
-import Uuid from 'src/core/common/domain/value-objects/uuid.vo';
+import { Entity } from 'apps/mba-dd-venda-ingresso/src/core/common/domain/entity';
+import Uuid from 'apps/mba-dd-venda-ingresso/src/core/common/domain/value-objects/uuid.vo';
 
 /* eslint-disable prettier/prettier */
 export class EventSpotId extends Uuid {}

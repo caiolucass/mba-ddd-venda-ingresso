@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { Entity } from "src/core/common/domain/entity";
-import Uuid from "src/core/common/domain/value-objects/uuid.vo";
+import { Entity } from "apps/mba-dd-venda-ingresso/src/core/common/domain/entity";
+import { AnyCollection, ICollection, MyCollectionFactory } from "apps/mba-dd-venda-ingresso/src/core/common/domain/my-collection";
+import Uuid from "apps/mba-dd-venda-ingresso/src/core/common/domain/value-objects/uuid.vo";
 import { EventSpot, EventSpotId } from "./event-spot.entity";
-import { AnyCollection, ICollection, MyCollectionFactory } from "src/core/common/domain/my-collection";
 
 export class EventSectionId extends Uuid {}
 

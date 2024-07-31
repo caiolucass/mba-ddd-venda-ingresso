@@ -1,42 +1,42 @@
 /* eslint-disable prettier/prettier */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prettier/prettier */
-import { UnitOfWorkInterface } from 'src/core/common/app/unit-of-work-.interface';
+import { UnitOfWorkInterface } from 'apps/mba-dd-venda-ingresso/src/core/common/app/unit-of-work-.interface';
+import { EventSectionId } from '../domain/entities/event-section.entity';
+import { EventSpotId } from '../domain/entities/event-spot.entity';
 import { EventRepositoryInterface } from '../domain/repositories/event-repository.interface';
 import { PartnerRepositoryInterface } from '../domain/repositories/partner-repository.interface';
-import { EventSectionId } from '../domain/entities/event-section.entity';
-import { EventSpot, EventSpotId } from '../domain/entities/event-spot.entity';
 
 export class EventService {
-  constructor(private eventRepo: EventRepositoryInterface, 
+  constructor(
+    private eventRepo: EventRepositoryInterface,
     private partnerRepo: PartnerRepositoryInterface,
-    private uow: UnitOfWorkInterface) {}
+    private uow: UnitOfWorkInterface,
+  ) {}
 
   list() {
     return this.eventRepo.findAll();
   }
 
-  async findSections(event_id: string){
-   const event = await this.eventRepo.findById(event_id);
-   return event.sections;
+  async findSections(event_id: string) {
+    const event = await this.eventRepo.findById(event_id);
+    return event.sections;
   }
 
   async create(input: {
-    name: string; 
-    description?: string | null; 
-    date: Date; 
-    partner_id: string}) {
-
+    name: string;
+    description?: string | null;
+    date: Date;
+    partner_id: string;
+  }) {
     const partner = await this.partnerRepo.findById(input.partner_id);
 
-    if(!partner){
-        throw new Error('Partner not found');
+    if (!partner) {
+      throw new Error('Partner not found');
     }
 
     const event = partner.initEvent({
-        name: input.name,
-        date: input.date,
-        description: input.description
+      name: input.name,
+      date: input.date,
+      description: input.description,
     });
 
     this.eventRepo.add(event);
@@ -46,12 +46,12 @@ export class EventService {
 
   async update(
     id: string,
-    input: {name?: string; description?: string; date?: Date}
+    input: { name?: string; description?: string; date?: Date },
   ) {
     const event = await this.eventRepo.findById(id);
 
-    if(!event){
-        throw new Error('Event not found');
+    if (!event) {
+      throw new Error('Event not found');
     }
 
     input.name && event.changeName(input.name);
@@ -87,12 +87,12 @@ export class EventService {
     description?: string | null;
     event_id: string;
     section_id: string;
-  }){
+  }) {
     const event = await this.eventRepo.findById(input.event_id);
 
-    if(!event){
+    if (!event) {
       throw new Error('Event not found');
-  }
+    }
 
     const sectionId = new EventSectionId(input.section_id);
     event.changeSectionInformation({
@@ -105,18 +105,18 @@ export class EventService {
     return event.sections;
   }
 
-  async findSpots(input: {event_id: string; section_id: string}) {
+  async findSpots(input: { event_id: string; section_id: string }) {
     const event = await this.eventRepo.findById(input.event_id);
 
-    if(!event){
+    if (!event) {
       throw new Error('Event not found');
-  }
+    }
 
     const section = event.sections.find((section) =>
       section.id.equals(new EventSectionId(input.section_id)),
     );
 
-    if(!section){
+    if (!section) {
       throw new Error('Section not found');
     }
     return section.spots;
@@ -127,12 +127,12 @@ export class EventService {
     event_id: string;
     section_id: string;
     spot_id: string;
-  }){
+  }) {
     const event = await this.eventRepo.findById(input.event_id);
 
-    if(!event){
+    if (!event) {
       throw new Error('Event not found');
-  }
+    }
 
     const sectionId = new EventSectionId(input.section_id);
     const spotId = new EventSpotId(input.spot_id);
@@ -142,17 +142,17 @@ export class EventService {
       location: input.location,
     });
     await this.eventRepo.add(event);
-    const section = event.sections.find((section) => 
+    const section = event.sections.find((section) =>
       section.id.equals(new EventSectionId(input.section_id)),
     );
     await this.uow.commit();
     return section.spots.find((spot) => spot.id.equals(spotId));
   }
 
-  async publishAll(input: {event_id: string}) {
+  async publishAll(input: { event_id: string }) {
     const event = await this.eventRepo.findById(input.event_id);
 
-    if(!event){
+    if (!event) {
       throw new Error('Event not found');
     }
 

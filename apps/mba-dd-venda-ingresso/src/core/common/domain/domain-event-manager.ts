@@ -1,8 +1,7 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { EventEmitter } from "stream";
-import { AggregateRoot } from "./aggregate.root";
 import EventEmitter2 from "eventemitter2";
+import { AggregateRoot } from "./aggregate.root";
 
 export class DomainEventManager {
     eventEmitter: EventEmitter2

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import Cpf from "src/core/common/domain/value-objects/cpf.vo";
+import Cpf from "apps/mba-dd-venda-ingresso/src/core/common/domain/value-objects/cpf.vo";
 import { Customer, CustomerId } from "../customer.entity";
 
 test('deve criar um cliente', () => {

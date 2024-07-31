@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { EntityProperty, Platform, Type } from "@mikro-orm/core";
-import Cpf from "src/core/common/domain/value-objects/cpf.vo";
+import Cpf from "apps/mba-dd-venda-ingresso/src/core/common/domain/value-objects/cpf.vo";
 
 export class CpfIdSchemaType extends Type<Cpf, string> {
     convertToDataBaseValue(

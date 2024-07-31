@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { UnitOfWorkInterface } from 'src/core/common/app/unit-of-work-.interface';
+import { UnitOfWorkInterface } from 'apps/mba-dd-venda-ingresso/src/core/common/app/unit-of-work-.interface';
 import { Customer } from '../domain/entities/customer.entity';
 import { CustomerRepositoryInterface } from '../domain/repositories/customer-repository.interface';
 

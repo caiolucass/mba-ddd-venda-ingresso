@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
-import { Order, OrderId } from './../../../domain/entities/order.entity';
 import { EntityManager } from "@mikro-orm/mysql";
-import { OrderRepositoryInterface } from 'src/core/events/domain/repositories/order-repository.interface';
+import { OrderRepositoryInterface } from 'apps/mba-dd-venda-ingresso/src/core/events/domain/repositories/order-repository.interface';
+import { Order, OrderId } from './../../../domain/entities/order.entity';
 
 export class OrderMysqlRepository implements OrderRepositoryInterface {
 

@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
-import { EventService } from 'src/core/events/app/event.service';
+import { EventService } from 'apps/mba-dd-venda-ingresso/src/core/events/app/event.service';
 import { EventDto } from './event.dto';
 
 @Controller('events')

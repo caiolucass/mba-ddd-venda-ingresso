@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { AggregateRoot } from "src/core/common/domain/aggregate.root";
-import { Uuid } from "src/core/common/domain/value-objects/uuid.vo";
-import { CustomerId } from "src/core/events/domain/entities/customer.entity";
-import { EventSpotId } from "src/core/events/domain/entities/event-spot.entity";
+import { AggregateRoot } from "apps/mba-dd-venda-ingresso/src/core/common/domain/aggregate.root";
+import Uuid from "apps/mba-dd-venda-ingresso/src/core/common/domain/value-objects/uuid.vo";
+import { CustomerId } from "apps/mba-dd-venda-ingresso/src/core/events/domain/entities/customer.entity";
+import { EventSpotId } from "apps/mba-dd-venda-ingresso/src/core/events/domain/entities/event-spot.entity";
 
 export enum OrderStatus {
     PENDING,

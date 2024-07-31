@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
+import { BullModule } from '@nestjs/bull/dist/bull.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DatabaseModule } from './database/database.module';
+import { DomainEventsModule } from './domain-events/domain-events.module';
 import { EventsModule } from './events/events.module';
-import { BullModule } from '@nestjs/bull/dist/bull.module';
+import { RabbitmqModule } from './rabbitmq/rabbitmq.module';
 
 @Module({
   imports: [
@@ -17,7 +19,7 @@ import { BullModule } from '@nestjs/bull/dist/bull.module';
   }),
    EventsModule,
    DomainEventsModule,
-   ApplicationModule,
+   RabbitmqModule,
   ],
   controllers: [AppController],
   providers: [AppService],

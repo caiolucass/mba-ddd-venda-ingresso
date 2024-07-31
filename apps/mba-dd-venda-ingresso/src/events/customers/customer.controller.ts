@@ -1,6 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { CustomerService } from 'src/core/events/app/customer.service';
+import { CustomerService } from 'apps/mba-dd-venda-ingresso/src/core/events/app/customer.service';
 
 @Controller('customers')
 export class CustomerController {

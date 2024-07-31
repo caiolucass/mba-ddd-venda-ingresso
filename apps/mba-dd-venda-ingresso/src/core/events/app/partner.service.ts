@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
+import { ApplicationService } from "apps/mba-dd-venda-ingresso/src/core/common/app/application.service";
 import { Partner } from "../domain/entities/partner.entity";
 import { PartnerRepositoryInterface } from "../domain/repositories/partner-repository.interface";
-import { ApplicationService } from "src/core/common/app/application.service";
 
 export class PartnerService {
   constructor(

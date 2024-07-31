@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
-import { SpotReservation } from './../../../domain/entities/spot-reservation.entity';
 import { EntityManager } from "@mikro-orm/mysql";
-import { EventSpotId } from 'src/core/events/domain/entities/event-spot.entity';
-import { SpotReservationRepositoryInterface } from 'src/core/events/domain/repositories/spot-reservation-repository.interface';
+import { EventSpotId } from 'apps/mba-dd-venda-ingresso/src/core/events/domain/entities/event-spot.entity';
+import { SpotReservationRepositoryInterface } from 'apps/mba-dd-venda-ingresso/src/core/events/domain/repositories/spot-reservation-repository.interface';
+import { SpotReservation } from './../../../domain/entities/spot-reservation.entity';
 
 export class SpotReservationMysqlRepository implements SpotReservationRepositoryInterface {
 

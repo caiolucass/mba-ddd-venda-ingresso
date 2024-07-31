@@ -2,8 +2,16 @@
 import { EntityManager } from '@mikro-orm/mysql';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { Global, Module } from '@nestjs/common';
-import { UnitOfWorkMikroOrm } from 'src/core/common/infra/unit-of-work-mikro-orm';
-import { CustomerSchema, EventSchema, EventSectionSchema, EventSpotSchema, OrderSchema, PartnerSchema, SpotReservationSchema } from 'src/core/events/infra/database/schemas';
+import { UnitOfWorkMikroOrm } from 'apps/mba-dd-venda-ingresso/src/core/common/infra/unit-of-work-mikro-orm';
+import {
+    CustomerSchema,
+    EventSchema,
+    EventSectionSchema,
+    EventSpotSchema,
+    OrderSchema,
+    PartnerSchema,
+    SpotReservationSchema
+} from 'apps/mba-dd-venda-ingresso/src/core/events/infra/database/schemas';
 
 @Global()
 @Module({

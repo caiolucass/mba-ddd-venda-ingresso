@@ -1,13 +1,13 @@
 /* eslint-disable prettier/prettier */
-import { SpotReservation } from './../domain/entities/spot-reservation.entity';
-import { UnitOfWorkInterface } from 'src/core/common/app/unit-of-work-.interface';
-import { OrderRepositoryInterface } from '../domain/repositories/order-repository.interface';
-import { CustomerRepositoryInterface } from '../domain/repositories/customer-repository.interface';
-import { EventRepositoryInterface } from '../domain/repositories/event-repository.interface';
+import { UnitOfWorkInterface } from 'apps/mba-dd-venda-ingresso/src/core/common/app/unit-of-work-.interface';
 import { EventSectionId } from '../domain/entities/event-section.entity';
 import { EventSpotId } from '../domain/entities/event-spot.entity';
-import { SpotReservationRepositoryInterface } from '../domain/repositories/spot-reservation-repository.interface';
 import { Order } from '../domain/entities/order.entity';
+import { CustomerRepositoryInterface } from '../domain/repositories/customer-repository.interface';
+import { EventRepositoryInterface } from '../domain/repositories/event-repository.interface';
+import { OrderRepositoryInterface } from '../domain/repositories/order-repository.interface';
+import { SpotReservationRepositoryInterface } from '../domain/repositories/spot-reservation-repository.interface';
+import { SpotReservation } from './../domain/entities/spot-reservation.entity';
 import { PaymentGateway } from './payment.gateway';
 export class OrderService {
   constructor(
