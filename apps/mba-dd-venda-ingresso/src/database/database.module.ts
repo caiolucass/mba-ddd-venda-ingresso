@@ -12,6 +12,7 @@ import {
     PartnerSchema,
     SpotReservationSchema
 } from 'apps/mba-dd-venda-ingresso/src/core/events/infra/database/schemas';
+import { StoredEventSchema } from '../core/stored-events/infra/database/schema';
 
 @Global()
 @Module({
@@ -25,6 +26,7 @@ import {
                 EventSpotSchema,
                 OrderSchema,
                 SpotReservationSchema,
+                StoredEventSchema,
             ],
             dbName: 'events',
             host: 'localhost',
@@ -45,4 +47,5 @@ import {
     ],
     exports: ['UnitOfWorkInterface'],
 })
+
 export class DatabaseModule {}
